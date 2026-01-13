@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Хорошего дня!</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 400px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            text-align: center;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .gif-container {
+            margin: 20px 0;
+            border-radius: 15px;
+            overflow: hidden;
+            height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .gif-container img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        h1 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .message {
+            color: #666;
+            font-size: 16px;
+            line-height: 1.5;
+            margin: 20px 0;
+            padding: 15px;
+            background: #f8f9ff;
+            border-radius: 10px;
+        }
+        
+        .wish {
+            font-size: 18px;
+            color: #667eea;
+            margin-top: 20px;
+            font-weight: 500;
+        }
+        
+        .footer {
+            margin-top: 20px;
+            color: #999;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>Хорошего дня!</h1>
+        
+        <div class="gif-container">
+            <img src="https://media.giphy.com/media/3o7abAHdYvZdBNnGZq/giphy.gif" 
+                 alt="Собачка желает хорошего дня">
+        </div>
+        
+        <div class="message">
+            Пусть день будет полон ярких моментов, 
+            приятных встреч и хорошего настроения!
+        </div>
+        
+        <div class="wish">
+            Удачи во всех начинаниях! ✨
+        </div>
+        
+        <div class="footer">
+            С наилучшими пожеланиями
+        </div>
+    </div>
+
+    <script>
+        // Авто-обновление страницы при открытии в ВК (опционально)
+        setTimeout(() => {
+            document.querySelector('.card').style.animation = 'fadeIn 0.3s ease-out';
+        }, 100);
+    </script>
+</body>
+</html>

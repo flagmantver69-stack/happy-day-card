@@ -25,6 +25,7 @@
             min-height: 100vh;
             padding: 20px;
             color: #ffffff !important;
+            overflow-x: hidden;
         }
         
         /* Делаем ВСЕ элементы с белым текстом */
@@ -34,26 +35,30 @@
         
         .header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             font-family: 'Impact', sans-serif;
+            padding: 0 10px;
+            width: 100%;
         }
         
         .header h1 {
-            font-size: 2.8rem;
+            font-size: 2.2rem;
             margin-bottom: 10px;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
             color: #ffffff;
             font-family: 'Impact', sans-serif !important;
             font-weight: normal !important;
+            line-height: 1.2;
         }
         
         .header p {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             max-width: 700px;
-            line-height: 1.5;
+            line-height: 1.4;
             color: #ffffff;
             font-family: 'Impact', sans-serif !important;
             font-weight: normal !important;
+            margin: 0 auto;
         }
         
         .container {
@@ -63,12 +68,13 @@
             max-width: 800px;
             margin: 0 auto;
             width: 100%;
+            padding: 0 10px;
         }
         
         .pet-section {
             background: linear-gradient(135deg, #2d3436, #1e272e);
-            border-radius: 25px;
-            padding: 30px;
+            border-radius: 20px;
+            padding: 20px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
             border: 4px solid #ffcc80;
             display: flex;
@@ -96,7 +102,7 @@
         
         .quotes-title {
             text-align: center;
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             margin-bottom: 15px;
             color: #ffcc80;
             font-family: 'Impact', sans-serif !important;
@@ -111,8 +117,8 @@
         
         .quote-item {
             background: rgba(255, 204, 128, 0.1);
-            border-radius: 15px;
-            padding: 15px;
+            border-radius: 12px;
+            padding: 12px;
             margin-bottom: 10px;
             border-left: 4px solid #ffcc80;
             animation: slideIn 0.5s ease;
@@ -137,14 +143,15 @@
         }
         
         .quote-text {
-            font-size: 1.1rem;
-            margin-bottom: 8px;
+            font-size: 1rem;
+            margin-bottom: 6px;
             font-family: 'Impact', sans-serif !important;
             font-weight: normal !important;
+            line-height: 1.3;
         }
         
         .quote-author {
-            font-size: 1rem;
+            font-size: 0.9rem;
             color: #ffcc80;
             text-align: right;
             font-family: 'Impact', sans-serif !important;
@@ -170,24 +177,27 @@
         }
         
         .timer-label {
-            font-size: 1.1rem;
+            font-size: 1rem;
             color: #ffcc80;
             margin-bottom: 5px;
             font-family: 'Impact', sans-serif !important;
             font-weight: normal !important;
+            text-align: center;
         }
         
         .timer {
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             color: #ffffff;
             background: rgba(255, 204, 128, 0.1);
-            border-radius: 15px;
-            padding: 10px 20px;
+            border-radius: 12px;
+            padding: 10px 15px;
             border: 2px solid #ffcc80;
             font-family: 'Impact', sans-serif !important;
             font-weight: normal !important;
             text-align: center;
-            min-width: 200px;
+            min-width: 180px;
+            width: 100%;
+            max-width: 250px;
         }
         
         .timer.ready {
@@ -202,9 +212,10 @@
         }
         
         .pet-container {
-            margin: 20px auto;
-            width: 400px;
-            height: 400px;
+            margin: 15px auto;
+            width: 100%;
+            max-width: 400px;
+            height: 300px;
             position: relative;
             display: flex;
             justify-content: center;
@@ -213,7 +224,7 @@
             order: 1; /* Первый элемент */
         }
         
-        /* Стили для GIF собаки */
+        /* Стили для GIF собаки - ИСПРАВЛЕНО ДЛЯ ТЕЛЕФОНОВ */
         .dog-gif-container {
             width: 100%;
             height: 100%;
@@ -222,7 +233,7 @@
             align-items: center;
             position: relative;
             overflow: hidden;
-            border-radius: 20px;
+            border-radius: 15px;
             background: #000;
             border: 3px solid #444;
         }
@@ -230,19 +241,19 @@
         .dog-gif {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain; /* ИЗМЕНЕНО: contain вместо cover чтобы не вылезало */
             transition: opacity 0.5s ease;
         }
         
         /* Миска для еды */
         .food-bowl {
             position: absolute;
-            width: 120px;
-            height: 45px;
+            width: 80px;
+            height: 30px;
             background: linear-gradient(135deg, #ff9800, #ff5722, #e65100);
-            border-radius: 60px 60px 25px 25px;
-            bottom: 30px;
-            right: 40px;
+            border-radius: 40px 40px 15px 15px;
+            bottom: 20px;
+            right: 20px;
             z-index: 10;
             box-shadow: 
                 0 5px 15px rgba(0,0,0,0.6),
@@ -254,11 +265,11 @@
         .food-bowl::before {
             content: '';
             position: absolute;
-            width: 110px;
-            height: 35px;
+            width: 70px;
+            height: 25px;
             background: linear-gradient(135deg, #ffb74d, #ff8a65, #ff7043);
-            border-radius: 55px 55px 20px 20px;
-            top: 5px;
+            border-radius: 35px 35px 12px 12px;
+            top: 3px;
             left: 5px;
             box-shadow: inset 0 3px 8px rgba(255,255,255,0.4);
         }
@@ -266,7 +277,7 @@
         .food-bowl::after {
             content: '🍖';
             position: absolute;
-            font-size: 30px;
+            font-size: 20px;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
@@ -291,7 +302,7 @@
         }
         
         .hunger-indicator {
-            margin-top: 30px;
+            margin-top: 20px;
             width: 100%;
             text-align: center;
             font-family: 'Impact', sans-serif !important;
@@ -299,12 +310,12 @@
         
         .hunger-bar {
             width: 100%;
-            height: 25px;
+            height: 20px;
             background: #333;
-            border-radius: 12px;
+            border-radius: 10px;
             margin: 10px 0;
             overflow: hidden;
-            border: 3px solid #ffb74d;
+            border: 2px solid #ffb74d;
         }
         
         .hunger-fill {
@@ -312,11 +323,11 @@
             background: linear-gradient(90deg, #4caf50, #8bc34a, #2e7d32);
             width: 100%;
             transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
-            border-radius: 10px;
+            border-radius: 8px;
         }
         
         .hunger-text {
-            font-size: 1.3rem;
+            font-size: 1.1rem;
             color: #ffffff;
             margin-bottom: 5px;
             font-family: 'Impact', sans-serif !important;
@@ -329,24 +340,24 @@
         
         #hungerLevel {
             color: #ffffff;
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-family: 'Impact', sans-serif !important;
             font-weight: normal !important;
         }
         
-        /* Стили для всплывающего сообщения */
+        /* Стили для всплывающего сообщения - ИСПРАВЛЕНО ДЛЯ ТЕЛЕФОНОВ */
         .comic-bubble {
             position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             background: linear-gradient(135deg, #2d3436, #1e272e);
-            border-radius: 25px;
-            padding: 30px;
+            border-radius: 20px;
+            padding: 25px 20px;
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
             z-index: 1000;
             max-width: 500px;
-            width: 90%;
+            width: calc(100% - 40px); /* Отступы от краев экрана */
             border: 5px solid #ffcc80;
             display: none;
             animation: bubbleAppear 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
@@ -393,46 +404,51 @@
         .comic-bubble-content {
             text-align: center;
             font-family: 'Impact', sans-serif !important;
+            width: 100%;
         }
         
         .bubble-title {
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             color: #ffffff;
             margin-bottom: 15px;
             font-family: 'Impact', sans-serif !important;
             font-weight: normal !important;
+            padding: 0 5px;
         }
         
         .bubble-wisdom {
-            font-size: 1.6rem;
+            font-size: 1.4rem;
             color: #ffffff;
-            line-height: 1.4;
-            margin: 20px 0;
+            line-height: 1.3;
+            margin: 15px 0;
             padding: 0 10px;
             font-family: 'Impact', sans-serif !important;
             font-weight: normal !important;
         }
         
         .bubble-author {
-            font-size: 1.3rem;
+            font-size: 1.1rem;
             color: #ffffff;
-            margin-top: 15px;
+            margin-top: 10px;
             font-family: 'Impact', sans-serif !important;
             font-weight: normal !important;
+            padding: 0 5px;
         }
         
         .bubble-close {
             background: linear-gradient(135deg, #3498db, #4ecdc4);
             color: white;
             border: none;
-            padding: 12px 30px;
-            font-size: 1.2rem;
+            padding: 12px 25px;
+            font-size: 1.1rem;
             border-radius: 50px;
             cursor: pointer;
-            margin-top: 25px;
+            margin-top: 20px;
             font-family: 'Impact', sans-serif !important;
             font-weight: normal !important;
             transition: all 0.3s;
+            width: 80%;
+            max-width: 200px;
         }
         
         .bubble-close:hover {
@@ -444,16 +460,18 @@
             background: linear-gradient(135deg, #3498db, #9b59b6);
             color: white;
             border: none;
-            padding: 15px 40px;
-            font-size: 1.3rem;
+            padding: 14px 30px;
+            font-size: 1.2rem;
             border-radius: 50px;
             cursor: pointer;
-            margin: 20px auto;
+            margin: 15px auto;
             display: block;
             transition: all 0.3s;
             font-family: 'Impact', sans-serif !important;
             font-weight: normal !important;
             box-shadow: 0 5px 15px rgba(155, 89, 182, 0.4);
+            width: 100%;
+            max-width: 300px;
         }
         
         .feed-btn:hover {
@@ -490,14 +508,16 @@
             background: linear-gradient(135deg, #ff9800, #f57c00);
             color: white;
             border: none;
-            padding: 12px 30px;
-            font-size: 1.1rem;
+            padding: 12px 25px;
+            font-size: 1rem;
             border-radius: 50px;
             cursor: pointer;
             font-family: 'Impact', sans-serif !important;
             font-weight: normal !important;
             transition: all 0.3s;
             box-shadow: 0 3px 10px rgba(255, 152, 0, 0.4);
+            width: 100%;
+            max-width: 250px;
         }
         
         .reset-btn:hover {
@@ -505,23 +525,41 @@
             box-shadow: 0 5px 15px rgba(255, 152, 0, 0.5);
         }
         
+        /* Медиазапросы для адаптивности */
         @media (max-width: 768px) {
+            body {
+                padding: 15px;
+            }
+            
             .header h1 {
-                font-size: 2.2rem;
+                font-size: 1.8rem;
+            }
+            
+            .header p {
+                font-size: 1rem;
             }
             
             .pet-container {
-                width: 320px;
-                height: 320px;
+                height: 250px;
             }
             
             .comic-bubble {
-                width: 95%;
-                padding: 20px;
+                width: calc(100% - 30px);
+                padding: 20px 15px;
+                border-radius: 15px;
             }
             
             .bubble-wisdom {
-                font-size: 1.4rem;
+                font-size: 1.2rem;
+                padding: 0 5px;
+            }
+            
+            .bubble-title {
+                font-size: 1.2rem;
+            }
+            
+            .bubble-author {
+                font-size: 1rem;
             }
             
             .quotes-banner {
@@ -529,24 +567,125 @@
             }
             
             .quote-text {
-                font-size: 1rem;
+                font-size: 0.95rem;
+            }
+            
+            .quote-author {
+                font-size: 0.85rem;
             }
             
             .feed-btn {
-                padding: 12px 30px;
-                font-size: 1.2rem;
+                padding: 12px 25px;
+                font-size: 1.1rem;
+                max-width: 280px;
             }
             
             .timer {
                 font-size: 1.1rem;
-                min-width: 180px;
+                min-width: 160px;
+                padding: 8px 12px;
+            }
+            
+            .pet-section {
+                padding: 15px;
+            }
+            
+            .hunger-text {
+                font-size: 1rem;
+            }
+            
+            #hungerLevel {
+                font-size: 0.9rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 1.6rem;
+            }
+            
+            .header p {
+                font-size: 0.9rem;
+            }
+            
+            .pet-container {
+                height: 220px;
+            }
+            
+            .comic-bubble {
+                width: calc(100% - 20px);
+                padding: 18px 12px;
+            }
+            
+            .bubble-wisdom {
+                font-size: 1.1rem;
+            }
+            
+            .bubble-title {
+                font-size: 1.1rem;
+            }
+            
+            .bubble-close {
+                padding: 10px 20px;
+                font-size: 1rem;
+            }
+            
+            .food-bowl {
+                width: 60px;
+                height: 25px;
+                bottom: 15px;
+                right: 15px;
+            }
+            
+            .food-bowl::before {
+                width: 50px;
+                height: 20px;
+            }
+            
+            .food-bowl::after {
+                font-size: 16px;
+            }
+            
+            .feed-btn {
+                padding: 10px 20px;
+                font-size: 1rem;
+            }
+            
+            .timer {
+                font-size: 1rem;
+                min-width: 140px;
+            }
+            
+            .timer-label {
+                font-size: 0.9rem;
+            }
+        }
+        
+        @media (max-width: 360px) {
+            .pet-container {
+                height: 200px;
+            }
+            
+            .comic-bubble {
+                padding: 15px 10px;
+            }
+            
+            .bubble-wisdom {
+                font-size: 1rem;
+            }
+        }
+        
+        /* Для очень высоких экранов */
+        @media (min-height: 800px) and (max-width: 768px) {
+            .pet-container {
+                height: 320px;
             }
         }
     </style>
 </head>
 <body>
     <div class="header">
-        <h1>Мудрая Собака 🐕</h1>
+        <h1>🐕 Мудрая Собака 🐕</h1>
         <p>Покормите голодную собаку, и она поделится с вами мудростью великих философов!</p>
     </div>
     
@@ -641,22 +780,22 @@
         // Коллекция мудростей философов
         const wisdoms = [
             {
-                text: "Добродетель есть знание.",
+                text: "Познай самого себя.",
                 author: "Сократ",
                 era: "Древняя Греция, V век до н.э."
             },
             {
-                text: "Уча других, мы учимся сами.",
+                text: "Жизнь должна быть измерена поступками, а не годами.",
                 author: "Сенека",
                 era: "Древний Рим, I век"
             },
             {
-                text: "Природа ничего не делает напрасно.",
+                text: "Мы являемся тем, что мы постоянно делаем. Совершенство, следовательно, не действие, а привычка.",
                 author: "Аристотель",
                 era: "Древняя Греция, IV век до н.э."
             },
             {
-                text: "Чтобы познать истину, необходимо раз в жизни, насколько это возможно, поставить всё под сомнение.",
+                text: "Я мыслю, следовательно, я существую.",
                 author: "Рене Декарт",
                 era: "Франция, XVII век"
             },

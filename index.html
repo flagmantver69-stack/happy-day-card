@@ -1,18 +1,9 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🎉 Хорошего дня! 🎉</title>
-    
-    <!-- Open Graph теги для ВК -->
-    <meta property="og:title" content="🎉 Хорошего дня! 🎉">
-    <meta property="og:description" content="Специальная открытка с пожеланиями хорошего дня">
-    <meta property="og:image" content="https://media.giphy.com/media/3o7abAHdYvZdBNnGZq/giphy.gif">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://flagmantver69-stack.github.io/happy-day-card/">
-    <meta property="vk:image" content="https://media.giphy.com/media/3o7abAHdYvZdBNnGZq/giphy.gif">
-    
+    <title>Мудрый Питомец (Тестовый режим)</title>
     <style>
         * {
             margin: 0;
@@ -21,85 +12,887 @@
         }
         
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
-            min-height: 100vh;
+            font-family: 'Comic Sans MS', 'Arial Rounded MT Bold', sans-serif;
             display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #e0f7fa 0%, #bbdefb 100%);
+            color: #333;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #1565c0;
+        }
+        
+        .header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .header p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            line-height: 1.5;
+            color: #0d47a1;
+        }
+        
+        .test-mode-banner {
+            background: linear-gradient(135deg, #ff9800, #ff5722);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .pet-section {
+            flex: 1;
+            min-width: 350px;
+            background: white;
+            border-radius: 25px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            border: 8px solid #ffcc80;
+        }
+        
+        .wisdom-section {
+            flex: 1;
+            min-width: 350px;
+            background: white;
+            border-radius: 25px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            border: 8px solid #80deea;
+        }
+        
+        .pet-container {
+            perspective: 1000px;
+            margin: 20px auto;
+            width: 300px;
+            height: 300px;
+            cursor: pointer;
+        }
+        
+        .pet {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transition: transform 1.2s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            border-radius: 50%;
+        }
+        
+        .pet.flipped {
+            transform: rotateY(180deg);
+        }
+        
+        .pet-front, .pet-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             padding: 20px;
         }
         
-        .card {
-            background: white;
-            border-radius: 20px;
-            padding: 30px;
-            max-width: 400px;
-            width: 100%;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
-            text-align: center;
-            animation: fadeIn 0.6s ease-out;
+        .pet-front {
+            background: linear-gradient(45deg, #ffecb3, #ffcc80);
+            border: 12px solid #ffb74d;
         }
         
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
+        .pet-back {
+            background: linear-gradient(45deg, #b3e5fc, #80deea);
+            border: 12px solid #4fc3f7;
+            transform: rotateY(180deg);
         }
         
-        h1 {
-            color: #2c3e50;
-            font-size: 28px;
-            margin-bottom: 20px;
-            font-weight: 600;
+        /* Стили для питомца */
+        .pet-face {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            background: #fff9c4;
+            border-radius: 50%;
+            border: 6px solid #ffb74d;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: inset 0 0 20px rgba(255, 152, 0, 0.2);
         }
         
-        .gif-container {
-            margin: 20px 0;
-            border-radius: 15px;
+        .eyes {
+            display: flex;
+            justify-content: space-around;
+            width: 120px;
+            margin-top: 40px;
+        }
+        
+        .eye {
+            width: 40px;
+            height: 40px;
+            background: #5d4037;
+            border-radius: 50%;
+            position: relative;
             overflow: hidden;
-            border: 3px solid #f1f1f1;
         }
         
-        .gif-container img {
+        .eye::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            top: 5px;
+            left: 10px;
+        }
+        
+        .mouth {
+            width: 80px;
+            height: 40px;
+            border-bottom: 8px solid #5d4037;
+            border-radius: 0 0 40px 40px;
+            margin-top: 30px;
+            transition: all 0.3s;
+        }
+        
+        .mouth.hungry {
+            width: 100px;
+            height: 50px;
+            border-bottom: 10px solid #d32f2f;
+            border-radius: 0 0 50px 50px;
+        }
+        
+        .mouth.happy {
+            width: 60px;
+            height: 30px;
+            border-bottom: 6px solid #388e3c;
+            border-radius: 0 0 30px 30px;
+        }
+        
+        .mouth.eating {
+            width: 90px;
+            height: 45px;
+            border-bottom: 9px solid #ff9800;
+            border-radius: 0 0 45px 45px;
+            animation: chew 0.5s infinite;
+        }
+        
+        @keyframes chew {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        .cheeks {
+            display: flex;
+            justify-content: space-between;
+            width: 180px;
+            margin-top: 10px;
+        }
+        
+        .cheek {
+            width: 30px;
+            height: 20px;
+            background: #ffab91;
+            border-radius: 50%;
+        }
+        
+        .hunger-indicator {
+            margin-top: 20px;
             width: 100%;
-            display: block;
+            text-align: center;
         }
         
-        .message {
-            color: #34495e;
-            font-size: 18px;
-            line-height: 1.6;
-            margin: 25px 0;
-            padding: 20px;
-            background: #f8f9fa;
+        .hunger-bar {
+            width: 100%;
+            height: 25px;
+            background: #e0e0e0;
             border-radius: 12px;
+            margin: 10px 0;
+            overflow: hidden;
+            border: 3px solid #ffb74d;
         }
         
-        .highlight {
-            color: #6a11cb;
-            font-weight: 600;
+        .hunger-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4caf50, #8bc34a);
+            width: 100%;
+            transition: width 1s;
+        }
+        
+        .hunger-text {
+            font-size: 1.2rem;
+            color: #5d4037;
+            font-weight: bold;
+        }
+        
+        .hunger-text.hungry {
+            color: #d32f2f;
+            animation: pulse 1.5s infinite;
+        }
+        
+        /* Стили для мудрости */
+        .wisdom-title {
+            font-size: 2rem;
+            color: #1565c0;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .wisdom-card {
+            background: linear-gradient(135deg, #e3f2fd, #f3e5f5);
+            border-radius: 20px;
+            padding: 25px;
+            margin: 20px 0;
+            border-left: 8px solid #7e57c2;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            min-height: 180px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .wisdom-text {
+            font-size: 1.4rem;
+            line-height: 1.5;
+            color: #311b92;
+            font-style: italic;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        
+        .wisdom-author {
+            font-size: 1.2rem;
+            color: #5e35b1;
+            text-align: right;
+            font-weight: bold;
+        }
+        
+        .feed-btn {
+            background: linear-gradient(135deg, #ff9800, #ff5722);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.3rem;
+            border-radius: 50px;
+            cursor: pointer;
+            margin: 20px auto;
+            display: block;
+            transition: all 0.3s;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(255, 87, 34, 0.4);
+        }
+        
+        .feed-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 87, 34, 0.6);
+        }
+        
+        .feed-btn:active {
+            transform: translateY(1px);
+        }
+        
+        .feed-btn:disabled {
+            background: linear-gradient(135deg, #bdbdbd, #9e9e9e);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 25px;
+            background: #e8f5e9;
+            padding: 15px;
+            border-radius: 15px;
+            border: 3px solid #81c784;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 1.8rem;
+            color: #2e7d32;
+            font-weight: bold;
+        }
+        
+        .stat-label {
+            font-size: 1rem;
+            color: #1b5e20;
+        }
+        
+        .instructions {
+            background: #fff3e0;
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 30px;
+            border: 4px solid #ffb74d;
+            max-width: 800px;
+        }
+        
+        .instructions h3 {
+            color: #e65100;
+            margin-bottom: 10px;
+        }
+        
+        .instructions ul {
+            margin-left: 20px;
+            line-height: 1.6;
+        }
+        
+        .timer {
+            font-size: 1.1rem;
+            color: #d84315;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 15px;
+            background: #ffecb3;
+            padding: 10px;
+            border-radius: 10px;
+        }
+        
+        .wisdom-notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #4caf50;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 1000;
+            animation: slideIn 0.5s, fadeOut 0.5s 2.5s;
+            display: none;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .pet-section, .wisdom-section {
+                min-width: 100%;
+            }
+            
+            .wisdom-notification {
+                top: 10px;
+                right: 10px;
+                left: 10px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="card">
-        <h1>✨ Хорошего дня! ✨</h1>
-        
-        <div class="gif-container">
-            <img src="https://media.giphy.com/media/3o7abAHdYvZdBNnGZq/giphy.gif" 
-                 alt="Собачка с пожеланиями">
+    <div class="test-mode-banner">🎮 ТЕСТОВЫЙ РЕЖИМ: Голод наступает каждую минуту!</div>
+    
+    <div class="header">
+        <h1>🐾 Мудрый Питомец 🐾</h1>
+        <p>Покормите голодного питомца, и он перевернется, чтобы подарить вам мудрость великих философов!</p>
+        <p><strong>Новая механика:</strong> Мудрость появляется только после кормления голодного питомца!</p>
+    </div>
+    
+    <div class="container">
+        <div class="pet-section">
+            <h2 class="wisdom-title">Ваш Питомец</h2>
+            
+            <div class="pet-container" id="petContainer">
+                <div class="pet" id="pet">
+                    <!-- Передняя сторона - питомец -->
+                    <div class="pet-front">
+                        <div class="pet-face">
+                            <div class="eyes">
+                                <div class="eye"></div>
+                                <div class="eye"></div>
+                            </div>
+                            <div class="mouth" id="mouth"></div>
+                            <div class="cheeks">
+                                <div class="cheek"></div>
+                                <div class="cheek"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="hunger-indicator">
+                            <div class="hunger-text" id="hungerText">Сытый и довольный!</div>
+                            <div class="hunger-bar">
+                                <div class="hunger-fill" id="hungerFill" style="width: 100%;"></div>
+                            </div>
+                            <div id="hungerLevel">Уровень сытости: 100%</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Задняя сторона - питомец с мудростью -->
+                    <div class="pet-back">
+                        <div class="wisdom-card">
+                            <div class="wisdom-text" id="wisdomText">
+                                Покормите голодного питомца, чтобы получить мудрость!
+                            </div>
+                            <div class="wisdom-author" id="wisdomAuthor"></div>
+                        </div>
+                        <div style="margin-top: 20px; text-align: center; font-size: 1.2rem; color: #0d47a1;">
+                            🎉 Питомец дарит вам мудрость!
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="feed-btn" id="feedBtn">🍎 Покормить питомца</button>
+            
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-value" id="fedCount">0</div>
+                    <div class="stat-label">Раз накормлен</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="wisdomCount">0</div>
+                    <div class="stat-label">Мудростей получено</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="minutesCount">0</div>
+                    <div class="stat-label">Минут с питомцем</div>
+                </div>
+            </div>
+            
+            <div class="timer" id="timer">
+                До голода: <span id="timeLeft">60 секунд</span>
+            </div>
         </div>
         
-        <div class="message">
-            Пусть этот день принесёт<br>
-            <span class="highlight">радость, удачу и вдохновение!</span><br><br>
-            Пусть всё задуманное получится,<br>
-            а настроение будет на высоте!
-        </div>
-        
-        <div style="font-size: 24px; margin: 15px 0;">
-            ❤️ 🐶 🌞 ☕ ❤️
+        <div class="wisdom-section">
+            <h2 class="wisdom-title">📜 Коллекция Мудростей</h2>
+            <div id="wisdomCollection">
+                <p style="text-align: center; color: #666; font-size: 1.2rem; margin-top: 50px;">
+                    Здесь будут появляться мудрые изречения, которые вы получите от питомца
+                </p>
+            </div>
         </div>
     </div>
+    
+    <div class="instructions">
+        <h3>Как это работает (ТЕСТОВЫЙ РЕЖИМ):</h3>
+        <ul>
+            <li>Питомец голодает за 1 минуту (вместо 24 часов)</li>
+            <li>Когда питомец полностью проголодается (сытость 0%), он готов к кормлению</li>
+            <li>Нажмите "Покормить питомца", чтобы накормить его</li>
+            <li>После кормления питомец автоматически перевернется и покажет мудрость</li>
+            <li>Мудрость появляется ТОЛЬКО после кормления голодного питомца</li>
+            <li>Каждое кормление дает новую мудрость (но только когда питомец голоден)</li>
+            <li>Все полученные мудрости сохраняются в коллекции</li>
+        </ul>
+    </div>
+    
+    <div class="wisdom-notification" id="wisdomNotification">
+        Получена новая мудрость!
+    </div>
+
+    <script>
+        // Элементы DOM
+        const pet = document.getElementById('pet');
+        const feedBtn = document.getElementById('feedBtn');
+        const hungerFill = document.getElementById('hungerFill');
+        const hungerText = document.getElementById('hungerText');
+        const hungerLevel = document.getElementById('hungerLevel');
+        const mouth = document.getElementById('mouth');
+        const wisdomText = document.getElementById('wisdomText');
+        const wisdomAuthor = document.getElementById('wisdomAuthor');
+        const fedCountElement = document.getElementById('fedCount');
+        const wisdomCountElement = document.getElementById('wisdomCount');
+        const minutesCountElement = document.getElementById('minutesCount');
+        const timeLeftElement = document.getElementById('timeLeft');
+        const wisdomCollection = document.getElementById('wisdomCollection');
+        const wisdomNotification = document.getElementById('wisdomNotification');
+        
+        // Коллекция мудростей философов
+        const wisdoms = [
+            {
+                text: "Познай самого себя.",
+                author: "Сократ",
+                era: "Древняя Греция, V век до н.э."
+            },
+            {
+                text: "Жизнь должна быть измерена поступками, а не годами.",
+                author: "Сенека",
+                era: "Древний Рим, I век"
+            },
+            {
+                text: "Мы являемся тем, что мы постоянно делаем. Совершенство, следовательно, не действие, а привычка.",
+                author: "Аристотель",
+                era: "Древняя Греция, IV век до н.э."
+            },
+            {
+                text: "Я мыслю, следовательно, я существую.",
+                author: "Рене Декарт",
+                era: "Франция, XVII век"
+            },
+            {
+                text: "Человек рожден свободным, но повсюду он в оковах.",
+                author: "Жан-Жак Руссо",
+                era: "Франция, XVIII век"
+            },
+            {
+                text: "Тот, кто сражается с монстрами, должен быть осторожен, чтобы самому не стать монстром.",
+                author: "Фридрих Ницше",
+                era: "Германия, XIX век"
+            },
+            {
+                text: "Единственное, что я знаю - это то, что я ничего не знаю.",
+                author: "Сократ",
+                era: "Древняя Греция, V век до н.э."
+            },
+            {
+                text: "Счастье - это не что иное, как обладание хорошим здоровьем и плохой памятью.",
+                author: "Альберт Швейцер",
+                era: "Германия/Франция, XX век"
+            },
+            {
+                text: "Величайшая победа - это победа над самим собой.",
+                author: "Платон",
+                era: "Древняя Греция, IV век до н.э."
+            },
+            {
+                text: "Будь тем изменением, которое ты хочешь увидеть в мире.",
+                author: "Махатма Ганди",
+                era: "Индия, XX век"
+            },
+            {
+                text: "Существование предшествует сущности.",
+                author: "Жан-Поль Сартр",
+                era: "Франция, XX век"
+            },
+            {
+                text: "Невозможно дважды войти в одну и ту же реку.",
+                author: "Гераклит",
+                era: "Древняя Греция, VI-V век до н.э."
+            },
+            {
+                text: "Знание - сила.",
+                author: "Фрэнсис Бэкон",
+                era: "Англия, XVI-XVII век"
+            },
+            {
+                text: "Цель музыки - трогать сердца.",
+                author: "Иоганн Себастьян Бах",
+                era: "Германия, XVIII век"
+            },
+            {
+                text: "Истина рождается в споре.",
+                author: "Сократ",
+                era: "Древняя Греция, V век до н.э."
+            }
+        ];
+        
+        // Состояние приложения
+        let state = {
+            hunger: 100, // 100% - полностью сыт, 0% - полностью голоден
+            lastFed: Date.now(), // Время последнего кормления
+            isFlipped: false, // Перевернут ли питомец
+            fedCount: 0, // Сколько раз покормили
+            wisdomCount: 0, // Сколько мудростей получено
+            minutesCount: 0, // Сколько минут с питомцем
+            collectedWisdoms: [], // Собранные мудрости
+            currentWisdom: null, // Текущая показанная мудрость
+            isHungry: false, // Голоден ли питомец сейчас
+            isEating: false // Ест ли питомец сейчас
+        };
+        
+        // Константы для тестового режима
+        const HUNGER_TIME = 60; // 60 секунд для тестового режима (вместо 24 часов)
+        
+        // Загружаем состояние из localStorage
+        function loadState() {
+            const savedState = localStorage.getItem('wisePetStateTest');
+            if (savedState) {
+                const parsed = JSON.parse(savedState);
+                
+                // Рассчитываем, сколько времени прошло с последнего кормления
+                const now = Date.now();
+                const secondsSinceLastFed = Math.floor((now - parsed.lastFed) / 1000);
+                
+                // Если прошло больше минуты, питомец голоден
+                if (secondsSinceLastFed >= HUNGER_TIME) {
+                    parsed.hunger = 0;
+                    parsed.isHungry = true;
+                } else {
+                    // Рассчитываем текущий голод
+                    parsed.hunger = Math.max(0, 100 - (secondsSinceLastFed / HUNGER_TIME) * 100);
+                    parsed.isHungry = parsed.hunger <= 0;
+                }
+                
+                // Обновляем счетчик минут
+                parsed.minutesCount = Math.floor((now - parsed.lastFed) / (1000 * 60)) + 1;
+                
+                Object.assign(state, parsed);
+            }
+        }
+        
+        // Сохраняем состояние в localStorage
+        function saveState() {
+            localStorage.setItem('wisePetStateTest', JSON.stringify(state));
+        }
+        
+        // Обновляем интерфейс
+        function updateUI() {
+            // Обновляем индикатор голода
+            hungerFill.style.width = `${state.hunger}%`;
+            hungerLevel.textContent = `Уровень сытости: ${Math.round(state.hunger)}%`;
+            
+            // Обновляем текст и выражение лица
+            if (state.isEating) {
+                hungerText.textContent = "Ням-ням! Вкусно!";
+                hungerText.className = "hunger-text";
+                mouth.className = "mouth eating";
+            } else if (state.hunger >= 70) {
+                hungerText.textContent = "Сытый и довольный!";
+                hungerText.className = "hunger-text";
+                mouth.className = "mouth happy";
+            } else if (state.hunger >= 30) {
+                hungerText.textContent = "Немного голоден...";
+                hungerText.className = "hunger-text";
+                mouth.className = "mouth";
+            } else if (state.hunger > 0) {
+                hungerText.textContent = "Очень голоден!";
+                hungerText.className = "hunger-text hungry";
+                mouth.className = "mouth hungry";
+            } else {
+                hungerText.textContent = "Совсем проголодался! Покорми меня!";
+                hungerText.className = "hunger-text hungry";
+                mouth.className = "mouth hungry";
+                state.isHungry = true;
+            }
+            
+            // Обновляем счетчики
+            fedCountElement.textContent = state.fedCount;
+            wisdomCountElement.textContent = state.wisdomCount;
+            minutesCountElement.textContent = state.minutesCount;
+            
+            // Обновляем кнопку кормления
+            feedBtn.disabled = !state.isHungry || state.isEating;
+            
+            // Обновляем переворот питомца
+            if (state.isFlipped) {
+                pet.classList.add('flipped');
+            } else {
+                pet.classList.remove('flipped');
+            }
+            
+            // Обновляем коллекцию мудростей
+            updateWisdomCollection();
+        }
+        
+        // Показываем случайную мудрость
+        function showRandomWisdom() {
+            // Выбираем мудрость, которой еще нет в коллекции
+            let availableWisdoms = wisdoms.filter(w => 
+                !state.collectedWisdoms.some(cw => cw.text === w.text)
+            );
+            
+            // Если все мудрости уже собраны, начинаем заново
+            if (availableWisdoms.length === 0) {
+                state.collectedWisdoms = [];
+                availableWisdoms = wisdoms;
+            }
+            
+            const randomIndex = Math.floor(Math.random() * availableWisdoms.length);
+            const wisdom = availableWisdoms[randomIndex];
+            
+            // Сохраняем как текущую мудрость
+            state.currentWisdom = wisdom;
+            
+            // Добавляем в коллекцию, если ее там еще нет
+            if (!state.collectedWisdoms.some(cw => cw.text === wisdom.text)) {
+                state.collectedWisdoms.push(wisdom);
+                state.wisdomCount++;
+                
+                // Показываем уведомление
+                wisdomNotification.style.display = 'block';
+                setTimeout(() => {
+                    wisdomNotification.style.display = 'none';
+                }, 3000);
+            }
+            
+            // Обновляем текст мудрости
+            wisdomText.textContent = `"${wisdom.text}"`;
+            wisdomAuthor.textContent = `— ${wisdom.author} (${wisdom.era})`;
+        }
+        
+        // Обновляем коллекцию мудростей
+        function updateWisdomCollection() {
+            if (state.collectedWisdoms.length === 0) {
+                wisdomCollection.innerHTML = `
+                    <p style="text-align: center; color: #666; font-size: 1.2rem; margin-top: 50px;">
+                        Здесь будут появляться мудрые изречения, которые вы получите от питомца
+                    </p>
+                `;
+                return;
+            }
+            
+            let html = '<div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">';
+            
+            state.collectedWisdoms.forEach((wisdom, index) => {
+                html += `
+                    <div style="flex: 1; min-width: 300px; max-width: 350px;">
+                        <div class="wisdom-card" style="min-height: 150px;">
+                            <div class="wisdom-text">"${wisdom.text}"</div>
+                            <div class="wisdom-author">— ${wisdom.author}</div>
+                            <div style="font-size: 0.9rem; color: #7e57c2; margin-top: 10px;">${wisdom.era}</div>
+                            <div style="font-size: 0.8rem; color: #999; margin-top: 5px;">Мудрость #${index + 1}</div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            html += '</div>';
+            wisdomCollection.innerHTML = html;
+        }
+        
+        // Функция кормления
+        function feedPet() {
+            if (!state.isHungry || state.isEating) return;
+            
+            // Начинаем кормление
+            state.isEating = true;
+            updateUI();
+            
+            // Анимация кормления
+            feedBtn.textContent = "🍎 Ням-ням!";
+            
+            // Через 1.5 секунды заканчиваем кормление
+            setTimeout(() => {
+                // Заканчиваем кормление
+                state.isEating = false;
+                state.hunger = 100;
+                state.lastFed = Date.now();
+                state.fedCount++;
+                state.isHungry = false;
+                
+                // Переворачиваем питомца, чтобы показать мудрость
+                state.isFlipped = true;
+                
+                // Показываем мудрость
+                showRandomWisdom();
+                
+                // Обновляем интерфейс
+                updateUI();
+                
+                // Сохраняем состояние
+                saveState();
+                
+                // Возвращаем текст кнопки
+                feedBtn.textContent = "🍎 Покормить питомца";
+                
+                // Через 5 секунд возвращаем питомца на лицевую сторону
+                setTimeout(() => {
+                    state.isFlipped = false;
+                    updateUI();
+                }, 5000);
+                
+            }, 1500);
+        }
+        
+        // Таймер голодания
+        function updateTimer() {
+            const now = Date.now();
+            const secondsSinceLastFed = Math.floor((now - state.lastFed) / 1000);
+            const secondsUntilHungry = Math.max(0, HUNGER_TIME - secondsSinceLastFed);
+            
+            if (secondsSinceLastFed >= HUNGER_TIME) {
+                // Питомец голоден
+                state.hunger = 0;
+                state.isHungry = true;
+                
+                // Обновляем счетчик минут
+                state.minutesCount = Math.floor(secondsSinceLastFed / 60) + 1;
+                
+                timeLeftElement.textContent = "Питомец голоден! Покормите его!";
+                timeLeftElement.style.color = "#d32f2f";
+            } else {
+                // Рассчитываем оставшееся время
+                const minutes = Math.floor(secondsUntilHungry / 60);
+                const seconds = secondsUntilHungry % 60;
+                
+                // Рассчитываем текущий голод
+                state.hunger = Math.max(0, 100 - (secondsSinceLastFed / HUNGER_TIME) * 100);
+                state.isHungry = state.hunger <= 0;
+                
+                // Обновляем счетчик минут
+                state.minutesCount = Math.floor(secondsSinceLastFed / 60) + 1;
+                
+                timeLeftElement.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                timeLeftElement.style.color = "#d84315";
+            }
+            
+            updateUI();
+        }
+        
+        // Инициализация
+        function init() {
+            loadState();
+            updateUI();
+            updateTimer();
+            
+            // Обновляем таймер каждую секунду
+            setInterval(updateTimer, 1000);
+            
+            // Обработчик кнопки кормления
+            feedBtn.addEventListener('click', feedPet);
+            
+            // Обработчик клика на питомца (если уже перевернут, можно вернуть)
+            pet.addEventListener('click', function() {
+                if (state.isFlipped) {
+                    state.isFlipped = false;
+                    updateUI();
+                }
+            });
+            
+            // Сохраняем состояние при закрытии страницы
+            window.addEventListener('beforeunload', saveState);
+        }
+        
+        // Запускаем приложение
+        init();
+    </script>
 </body>
 </html>

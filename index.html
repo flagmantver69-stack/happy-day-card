@@ -224,7 +224,7 @@
             order: 1; /* Первый элемент */
         }
         
-        /* Стили для GIF собаки - ИСПРАВЛЕНО ДЛЯ ТЕЛЕФОНОВ */
+        /* Стили для GIF собаки - БЕЗ ЧЕРНЫХ ОТСТУПОВ */
         .dog-gif-container {
             width: 100%;
             height: 100%;
@@ -234,14 +234,14 @@
             position: relative;
             overflow: hidden;
             border-radius: 15px;
-            background: #000;
+            background: linear-gradient(135deg, #2d3436, #1e272e); /* Фон как у сайта */
             border: 3px solid #444;
         }
         
         .dog-gif {
             width: 100%;
             height: 100%;
-            object-fit: contain; /* ИЗМЕНЕНО: contain вместо cover чтобы не вылезало */
+            object-fit: cover; /* Заполняет весь контейнер без отступов */
             transition: opacity 0.5s ease;
         }
         
@@ -345,7 +345,7 @@
             font-weight: normal !important;
         }
         
-        /* Стили для всплывающего сообщения - ИСПРАВЛЕНО ДЛЯ ТЕЛЕФОНОВ */
+        /* Стили для всплывающего сообщения - С ПЛАВНОЙ АНИМАЦИЕЙ */
         .comic-bubble {
             position: fixed;
             top: 50%;
@@ -357,11 +357,16 @@
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
             z-index: 1000;
             max-width: 500px;
-            width: calc(100% - 40px); /* Отступы от краев экрана */
+            width: calc(100% - 40px);
             border: 5px solid #ffcc80;
             display: none;
-            animation: bubbleAppear 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            opacity: 0;
+            animation: bubbleAppear 0.7s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
             font-family: 'Impact', sans-serif !important;
+        }
+        
+        .comic-bubble.show {
+            display: block;
         }
         
         .comic-bubble::after {
@@ -388,12 +393,12 @@
         
         @keyframes bubbleAppear {
             0% {
-                transform: translate(-50%, -50%) scale(0.1);
+                transform: translate(-50%, -50%) scale(0.8);
                 opacity: 0;
             }
-            70% {
-                transform: translate(-50%, -50%) scale(1.1);
-                opacity: 1;
+            40% {
+                transform: translate(-50%, -50%) scale(1.05);
+                opacity: 0.7;
             }
             100% {
                 transform: translate(-50%, -50%) scale(1);
@@ -405,6 +410,19 @@
             text-align: center;
             font-family: 'Impact', sans-serif !important;
             width: 100%;
+            opacity: 0;
+            animation: contentFadeIn 0.5s ease 0.3s forwards;
+        }
+        
+        @keyframes contentFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         
         .bubble-title {
@@ -414,6 +432,8 @@
             font-family: 'Impact', sans-serif !important;
             font-weight: normal !important;
             padding: 0 5px;
+            opacity: 0;
+            animation: textFadeIn 0.4s ease 0.4s forwards;
         }
         
         .bubble-wisdom {
@@ -424,6 +444,8 @@
             padding: 0 10px;
             font-family: 'Impact', sans-serif !important;
             font-weight: normal !important;
+            opacity: 0;
+            animation: textFadeIn 0.4s ease 0.5s forwards;
         }
         
         .bubble-author {
@@ -433,6 +455,19 @@
             font-family: 'Impact', sans-serif !important;
             font-weight: normal !important;
             padding: 0 5px;
+            opacity: 0;
+            animation: textFadeIn 0.4s ease 0.6s forwards;
+        }
+        
+        @keyframes textFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         
         .bubble-close {
@@ -449,11 +484,25 @@
             transition: all 0.3s;
             width: 80%;
             max-width: 200px;
+            opacity: 0;
+            animation: buttonFadeIn 0.4s ease 0.7s forwards;
+            transform-origin: center;
+        }
+        
+        @keyframes buttonFadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
         
         .bubble-close:hover {
             background: linear-gradient(135deg, #2980b9, #3db4ac);
-            transform: translateY(-2px);
+            transform: translateY(-2px) scale(1.05);
         }
         
         .feed-btn {
@@ -597,6 +646,11 @@
             #hungerLevel {
                 font-size: 0.9rem;
             }
+            
+            /* Для GIF на мобильных - можно сделать фон темнее для контраста */
+            .dog-gif-container {
+                background: linear-gradient(135deg, #1a1a2e, #16213e);
+            }
         }
         
         @media (max-width: 480px) {
@@ -685,7 +739,7 @@
 </head>
 <body>
     <div class="header">
-        <h1>🐕 Мудрая Собака 🐕</h1>
+        <h1>Мудрая Собака 🐕</h1>
         <p>Покормите голодную собаку, и она поделится с вами мудростью великих философов!</p>
     </div>
     
@@ -1099,7 +1153,15 @@
             // Показываем во всплывающем сообщении
             bubbleWisdom.textContent = `"${wisdom.text}"`;
             bubbleAuthor.textContent = `— ${wisdom.author} (${wisdom.era})`;
+            
+            // Сначала скрываем сообщение, потом показываем с анимацией
+            comicBubble.classList.remove('show');
             comicBubble.style.display = 'block';
+            
+            // Немного задержки перед началом анимации
+            setTimeout(() => {
+                comicBubble.classList.add('show');
+            }, 10);
             
             saveState();
         }
@@ -1179,20 +1241,10 @@
             
             // Обработчик закрытия всплывающего сообщения
             bubbleClose.addEventListener('click', function() {
-                comicBubble.style.display = 'none';
-                foodBowl.classList.remove('show');
+                comicBubble.classList.remove('show');
                 
-                // Возвращаем основной GIF после закрытия цитаты
-                dogGif.src = NORMAL_GIF;
-                
-                // Обновляем интерфейс
-                updateUI();
-                updateTimerDisplay();
-            });
-            
-            // Закрытие всплывающего сообщения по клику вне его
-            comicBubble.addEventListener('click', function(e) {
-                if (e.target === comicBubble) {
+                // Скрываем после завершения анимации
+                setTimeout(() => {
                     comicBubble.style.display = 'none';
                     foodBowl.classList.remove('show');
                     
@@ -1202,6 +1254,26 @@
                     // Обновляем интерфейс
                     updateUI();
                     updateTimerDisplay();
+                }, 300);
+            });
+            
+            // Закрытие всплывающего сообщения по клику вне его
+            comicBubble.addEventListener('click', function(e) {
+                if (e.target === comicBubble) {
+                    comicBubble.classList.remove('show');
+                    
+                    // Скрываем после завершения анимации
+                    setTimeout(() => {
+                        comicBubble.style.display = 'none';
+                        foodBowl.classList.remove('show');
+                        
+                        // Возвращаем основной GIF после закрытия цитаты
+                        dogGif.src = NORMAL_GIF;
+                        
+                        // Обновляем интерфейс
+                        updateUI();
+                        updateTimerDisplay();
+                    }, 300);
                 }
             });
             

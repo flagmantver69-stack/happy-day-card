@@ -763,7 +763,7 @@
             </div>
             
             <div class="hunger-indicator">
-                <div class="hunger-text" id="hungerText">Немного проголодалась...</div>
+                <div class="hunger-text" id="hungerText">Совсем проголодалась! Покорми меня!</div>
                 <div class="hunger-bar">
                     <div class="hunger-fill" id="hungerFill" style="width: 0%;"></div>
                 </div>
@@ -920,47 +920,84 @@
             currentWisdom: null,
             isHungry: true, // Всегда голодна при старте
             isEating: false,
-            savedQuotes: [] // Массив для сохраненных цитат
+            savedQuotes: [], // Массив для сохраненных цитат
+            firstTimeUser: true // Флаг первого использования
         };
         
-        // Константы - ИЗМЕНЕНО: 1 час вместо 60 секунд
+        // Константы
         const HUNGER_TIME = 3600; // 3600 секунд = 1 час
         const GIF_EATING_DURATION = 9000; // 9 секунд для анимации еды
         
         // Загружаем состояние из localStorage
         function loadState() {
             const savedState = localStorage.getItem('wisePetState');
-            if (savedState) {
-                const parsed = JSON.parse(savedState);
+            
+            // Если пользователь открыл впервые (или очистил данные)
+            if (!savedState) {
+                // Устанавливаем начальное состояние - собака голодна, цитат нет
+                state = {
+                    hunger: 0,
+                    lastFed: 0,
+                    fedCount: 0,
+                    wisdomCount: 0,
+                    usedWisdoms: [],
+                    currentWisdom: null,
+                    isHungry: true,
+                    isEating: false,
+                    savedQuotes: [],
+                    firstTimeUser: true
+                };
                 
-                const now = Date.now();
-                const secondsSinceLastFed = parsed.lastFed > 0 ? Math.floor((now - parsed.lastFed) / 1000) : HUNGER_TIME;
+                // Сразу показываем, что собака голодна
+                hungerText.textContent = "Совсем проголодалась! Покорми меня!";
+                hungerText.className = "hunger-text hungry";
+                feedBtn.disabled = false;
                 
-                // Если никогда не кормили или прошло больше времени чем HUNGER_TIME
-                if (secondsSinceLastFed >= HUNGER_TIME || parsed.lastFed === 0) {
-                    parsed.hunger = 0;
-                    parsed.isHungry = true;
-                } else {
-                    parsed.hunger = Math.max(0, 100 - (secondsSinceLastFed / HUNGER_TIME) * 100);
-                    parsed.isHungry = parsed.hunger <= 0;
-                }
+                // Устанавливаем начальный GIF
+                dogGif.src = NORMAL_GIF;
                 
-                Object.assign(state, parsed);
-                
-                // Загружаем сохраненные цитаты
+                // Показываем пустой список цитат
                 renderSavedQuotes();
-            } else {
-                // Если нет сохраненных данных, собака голодна
-                resetState(true); // true - не показывать подтверждение
+                return;
             }
+            
+            // Если есть сохраненное состояние - загружаем его
+            const parsed = JSON.parse(savedState);
+            
+            // Для существующих пользователей проверяем время
+            const now = Date.now();
+            const secondsSinceLastFed = parsed.lastFed > 0 ? Math.floor((now - parsed.lastFed) / 1000) : HUNGER_TIME;
+            
+            // Если никогда не кормили или прошло больше времени чем HUNGER_TIME
+            if (secondsSinceLastFed >= HUNGER_TIME || parsed.lastFed === 0) {
+                parsed.hunger = 0;
+                parsed.isHungry = true;
+            } else {
+                parsed.hunger = Math.max(0, 100 - (secondsSinceLastFed / HUNGER_TIME) * 100);
+                parsed.isHungry = parsed.hunger <= 0;
+            }
+            
+            Object.assign(state, parsed);
+            state.firstTimeUser = false; // Это не первый раз
             
             // Устанавливаем начальный GIF
             dogGif.src = NORMAL_GIF;
+            
+            // Загружаем сохраненные цитаты
+            renderSavedQuotes();
         }
         
         // Сохраняем состояние в localStorage
         function saveState() {
-            localStorage.setItem('wisePetState', JSON.stringify(state));
+            // Не сохраняем состояние для пользователей, которые еще ни разу не кормили
+            if (state.firstTimeUser && state.fedCount === 0) {
+                return;
+            }
+            
+            // Сохраняем все, кроме флага firstTimeUser
+            const stateToSave = {...state};
+            delete stateToSave.firstTimeUser;
+            localStorage.setItem('wisePetState', JSON.stringify(stateToSave));
         }
         
         // Сброс состояния (включая цитаты)
@@ -979,7 +1016,8 @@
                 currentWisdom: null,
                 isHungry: true, // Собака голодна после сброса
                 isEating: false,
-                savedQuotes: [] // Очищаем цитаты!
+                savedQuotes: [], // Очищаем цитаты!
+                firstTimeUser: true // После сброса считаем пользователя новым
             };
             
             // Возвращаем основной GIF
@@ -987,7 +1025,9 @@
             
             updateUI();
             renderSavedQuotes(); // Обновляем отображение (покажет пустой список)
-            saveState();
+            
+            // Удаляем сохраненное состояние
+            localStorage.removeItem('wisePetState');
         }
         
         // Отображаем сохраненные цитаты
@@ -1193,12 +1233,16 @@
                 state.lastFed = Date.now();
                 state.fedCount++;
                 state.isHungry = false;
+                state.firstTimeUser = false; // Больше не первый раз
                 
                 // Обновляем UI
                 updateUI();
                 
                 // Возвращаем текст кнопки
                 feedBtn.textContent = "🍖 Покормить собаку";
+                
+                // Сохраняем состояние после первого кормления
+                saveState();
                 
             }, GIF_EATING_DURATION);
         }
